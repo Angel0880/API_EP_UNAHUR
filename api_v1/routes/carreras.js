@@ -3,8 +3,8 @@ var router = express.Router();
 var models = require("../models");
 
 router.get("/", (req, res) => {
-  const paginaActual = parseInt(req.query.paginaActual)
-  const cantidadAVer = parseInt(req.query.cantidadAVer)
+  const paginaActual = parseInt(req.query.paginaActual) || 1;
+  const cantidadAVer = parseInt(req.query.cantidadAVer) || 5;
   models.carrera
     .findAll({
 

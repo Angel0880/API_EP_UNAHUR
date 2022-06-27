@@ -3,8 +3,8 @@ var router = express.Router();
 var models = require("../models");
 
 router.get("/", (req, res, next) => {
-  const paginaActual = parseInt(req.query.paginaActual)
-  const cantidadAVer = parseInt(req.query.cantidadAVer)
+  const paginaActual = parseInt(req.query.paginaActual) || 1;
+  const cantidadAVer = parseInt(req.query.cantidadAVer) || 5;
 
   models.alumno.findAll({
 
@@ -12,6 +12,7 @@ router.get("/", (req, res, next) => {
     include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["id","nombre"]}],
     offset: (paginaActual - 1) * cantidadAVer,
     limit: cantidadAVer
+    
 
     }).then(alumnos => res.send(alumnos)).catch(error => { return next(error)});
 });
