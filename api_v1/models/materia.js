@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   materia.associate = function(models) {
     
-
   	//asociacion a carrera (pertenece a:)
   	materia.belongsTo(models.carrera// modelo al que pertenece
     ,{
@@ -14,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'id_carrera'     // campo con el que voy a igualar
     })
   	/////////////////////
-
-
 
   };
   return materia;
