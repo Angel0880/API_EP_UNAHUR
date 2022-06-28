@@ -2,19 +2,22 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   const paginaActual = parseInt(req.query.paginaActual) || 1;
   const cantidadAVer = parseInt(req.query.cantidadAVer) || 5;
 
-  models.profesor
-    .findAll({
-      attributes: ["id","nombre","apellido","edad","fechaNac","paisOrigen","id_materia"],
-      include:[{as:'Materia-Relacionada', model:models.materia, attributes: ["id","nombre","id_carrera"]}],
-      offset: (paginaActual-1) * cantidadAVer,
-      limit: cantidadAVer
-    })
-    .then(profesor => res.send(profesor))
-    .catch(() => res.sendStatus(500));
+  models.profesor.findAll({
+      
+    attributes: ["id","nombre","apellido","edad","fechaNac","paisOrigen","id_materia"],
+    include:[{as:'Materia-Relacionada', model:models.materia, attributes: ["nombre","id_carrera"],
+      include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["nombre"]
+      }]
+    }],
+    offset: (paginaActual - 1) * cantidadAVer,
+    limit: cantidadAVer
+  
+  }).then(profesor => res.send(profesor)).catch(error => { return next(error)});
+
 });
 
 router.post("/", (req, res) => {

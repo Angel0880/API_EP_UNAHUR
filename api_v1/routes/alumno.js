@@ -13,8 +13,8 @@ router.get("/", (req, res, next) => {
     offset: (paginaActual - 1) * cantidadAVer,
     limit: cantidadAVer
     
-
-    }).then(alumnos => res.send(alumnos)).catch(error => { return next(error)});
+  }).then(alumnos => res.send(alumnos)).catch(error => { return next(error)});
+  
 });
 
 router.post("/", (req, res) => {
