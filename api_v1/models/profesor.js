@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     paisOrigen: DataTypes.STRING,
     id_materia: DataTypes.INTEGER
   }, {});
+
   profesor.associate = function(models) {
+    
     // associations can be defined here
   	profesor.belongsTo(models.materia// modelo al que pertenece
     ,{
@@ -16,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'id_materia'     // campo con el que voy a igualar
     })
   	/////////////////////
+
   };
   return profesor;
 };

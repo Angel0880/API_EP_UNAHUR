@@ -1,11 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var models = require("../models");
+//var moment = require("moment")
 
 router.get("/", (req, res, next) => {
-  const paginaActual = parseInt(req.query.paginaActual) || 1;
-  const cantidadAVer = parseInt(req.query.cantidadAVer) || 5;
-
+  const paginaActual = parseInt(req.query.paginaActual) ? parseInt(req.query.paginaActual): 1;
+  const cantidadAVer = parseInt(req.query.cantidadAVer) ? parseInt(req.query.cantidadAVer): 999;
+  //moment(models.profesor.fechaNac).format("MMMM Do YYYY, h:mm:ss")
   models.profesor.findAll({
       
     attributes: ["id","nombre","apellido","edad","fechaNac","paisOrigen","id_materia"],
