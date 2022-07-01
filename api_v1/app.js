@@ -9,7 +9,6 @@ var alumnoRouter = require('./routes/alumno');
 var profesorRouter = require('./routes/profesor');
 var usuarioRouter = require('./routes/user');
 
-
 var app = express();
 
 // view engine setup
