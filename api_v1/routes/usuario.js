@@ -1,18 +1,20 @@
 var express = require("express");
 var router = express.Router();
 var models = require("../models");
+const jwtUtils = require("../utils/jwtUtils");
 
 router.post("/registrar", async (req, res) => {
   models.usuario
     .create({
       nombre: req.body.nombre,
-      contraseña: req.body.contraseña
+      clave: req.body.clave
     })
     .then((usuario) =>
       res.status(201).send({
         id: usuario.id,
         nombre: usuario.nombre,
-        contraseña: usuario.contraseña
+        clave: usuario.clave,
+        token: jwtUtils.generarJwt(usuario.id)
       })
     )
     .catch((error) => {
@@ -33,12 +35,13 @@ router.post("/login", async (req, res) => {
       attributes: ["id", "nombre"],
       where: {
         nombre: req.body.nombre,
-        contraseña: req.body.contraseña,
+        clave: req.body.clave,
       },
     });
     res.json({
       id: usuario.id,
-      nombre: usuario.nombre
+      nombre: usuario.nombre,
+      token: jwtUtils.generarJwt(usuario.id)
     });
   } catch (error) {
     res.status(500).json({

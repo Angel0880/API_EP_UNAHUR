@@ -7,7 +7,7 @@ var carrerasRouter = require('./routes/carreras');
 var materiaRouter = require('./routes/materia');
 var alumnoRouter = require('./routes/alumno');
 var profesorRouter = require('./routes/profesor');
-var usuarioRouter = require('./routes/user');
+var usuarioRouter = require('./routes/usuario');
 
 var app = express();
 
