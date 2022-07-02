@@ -9,10 +9,10 @@ const verificarJwt = (token) => {
   return jwt.verify(token, clave_reservada);
 };
 
-const authServices = {
+const jwtUtils = {
   generarJwt,
   verificarJwt,
 };
 
-module.exports = authServices;
+module.exports = jwtUtils;
 
