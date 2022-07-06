@@ -17,6 +17,22 @@ router.get("/", (req, res, next) => {
 
 });
 
+router.get("/porEdad/:orden", (req, res, next) => {
+  const paginaActual = parseInt(req.query.paginaActual) ? parseInt(req.query.paginaActual): 1;
+  const cantidadAVer = parseInt(req.query.cantidadAVer) ? parseInt(req.query.cantidadAVer): 999;
+
+  models.alumno.findAll({
+
+    attributes: ["id","nombre","apellido","edad","fechaNac","paisOrigen","id_carrera"],
+    order: [['edad',req.params.orden]], 
+    include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["nombre"]}],
+    offset: (paginaActual - 1) * cantidadAVer,
+    limit: cantidadAVer
+    
+  }).then(alumnos => res.send(alumnos)).catch(error => { return next(error)});
+
+});
+
 router.post("/", (req, res) => {
   models.alumno
     .create({ nombre: req.body.nombre, apellido: req.body.apellido, edad: req.body.edad, fechaNac: req.body.fechaNac, paisOrigen: req.body.paisOrigen, id_carrera: req.body.id_carrera })
